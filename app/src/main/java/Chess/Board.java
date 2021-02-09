@@ -16,6 +16,13 @@ public class Board {
         this.nbRanks = board.length;
         this.nbFiles = board[0].length;
 
+        for(int i = 0; i<this.nbRanks; i++){
+            for(int j = 0; j<this.nbFiles; j++){
+                Square square = new Square(i,j);
+                this.setSquare(i,j, square);
+            }
+        }
+
     }
 
     public Board(int nbRanks, int nbFiles){
@@ -66,29 +73,26 @@ public class Board {
 
 
     ////////////////////////////////////////    Square inner class
-    private class Square{
-        final int file;
-        final int rank;
+    protected class Square{
+        final Position position;
         Piece piece;
 
         public Square(int file, int rank, Piece piece) {
-            this.file = file;
-            this.rank = rank;
+            this.position = new Position(rank, file);
             this.piece = piece;
         }
 
         public Square(int file, int rank) {
-            this.file = file;
-            this.rank = rank;
+            this.position = new Position(rank, file);
             this.piece = null;
         }
 
         public int getFile() {
-            return file;
+            return position.getFile();
         }
 
         public int getRank() {
-            return rank;
+            return position.getRank();
         }
 
         public Piece getPiece() {
@@ -97,6 +101,33 @@ public class Board {
 
         public void setPiece(Piece piece) {
             this.piece = piece;
+        }
+    }
+
+    protected static class Position{
+        int file;
+        int rank;
+
+        public Position(int rank, int file) {
+            this.rank = rank;
+            this.file = file;
+
+        }
+
+        public int getFile() {
+            return file;
+        }
+
+        public void setFile(int file) {
+            this.file = file;
+        }
+
+        public int getRank() {
+            return rank;
+        }
+
+        public void setRank(int rank) {
+            this.rank = rank;
         }
     }
 
