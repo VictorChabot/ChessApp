@@ -100,7 +100,6 @@ public class Move {
 
         }
 
-
         public int getRankDirection() {
             return rankDirection;
         }

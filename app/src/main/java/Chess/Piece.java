@@ -7,6 +7,7 @@ public abstract class Piece {
     protected boolean canCapturePeer;
     protected int nbMoves;
     protected Board.Position position;
+    protected Move.Direction[] directions;
 
     public Piece(String name, int team, boolean canCaptureFoe, boolean canCapturePeer, Board.Position position) {
         this.name = name;
@@ -29,6 +30,14 @@ public abstract class Piece {
         this.team = team;
         this.nbMoves = 0;
         this.position = position;
+    }
+
+    public Move.Direction[] getDirections() {
+        return directions;
+    }
+
+    public void setDirections(Move.Direction[] directions) {
+        this.directions = directions;
     }
 
     public String getName() {
