@@ -2,15 +2,15 @@ package Chess;
 
 import Chess.Move.Direction;
 
-public class Bishop extends Piece{
+public class Knight extends Piece{
     protected int maxDistance;
     protected int nbPossiblePositions;
     protected Direction[] possibleDirection;
 
-    public Bishop(int team, Board.Position position) {
+    public Knight(int team, Board.Position position) {
         super(team, position);
 
-        this.name = "Bishop";
+        this.name = "Knight";
 
         this.canCaptureFoe=true;
         this.canCapturePeer=false;
@@ -33,7 +33,7 @@ public class Bishop extends Piece{
     Board.Position[][] captureFunction() {
 
         Board.Position[][] arrayPositions;
-        arrayPositions = Move.moveDirections(this.directions, this.position, this.maxDistance);
+        arrayPositions = Move.moveLDirections(this.directions, this.position);
 
         return arrayPositions;
 
@@ -43,7 +43,7 @@ public class Bishop extends Piece{
     Board.Position[][] moveFunction() {
 
         Board.Position[][] arrayPositions;
-        arrayPositions = Move.moveDirections(this.directions, this.position, this.maxDistance);
+        arrayPositions = Move.moveLDirections(this.directions, this.position);
 
         return arrayPositions;
 
