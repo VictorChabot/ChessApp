@@ -80,8 +80,8 @@ public abstract class Piece {
         this.position = position;
     }
 
-    abstract Board.Position[] moveFunction();
+    abstract Board.Position[][] moveFunction();
 
-    abstract Board.Position[] captureFunction();
+    abstract Board.Position[][] captureFunction();
 
 }

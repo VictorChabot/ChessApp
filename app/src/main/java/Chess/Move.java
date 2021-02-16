@@ -81,7 +81,7 @@ public class Move {
     }
 
 
-    public class Direction{
+    public static class Direction{
 
         int rankDirection;
         int fileDirection;

@@ -1,9 +1,11 @@
 package Chess;
 
+import Chess.Move.Direction;
+
 public class Bishop extends Piece{
     protected int maxDistance;
     protected int nbPossiblePositions;
-    protected Move.Direction[] possibleDirection;
+    protected Direction[] possibleDirection;
 
     public Bishop(int team, Board.Position position) {
         super(team, position);
@@ -16,41 +18,36 @@ public class Bishop extends Piece{
         this.maxDistance = 8;
         this.nbPossiblePositions = this.maxDistance*4;
 
-        Move.Direction directionN = new Move.Direction(0,1);
-        Move.Direction directionNE = new Move.Direction(1,1);
-        Move.Direction directionE = new Move.Direction(1,0);
-        Move.Direction directionSE = new Move.Direction(-1,-1);
-        Move.Direction directionS = new Move.Direction(0,-1);
-        Move.Direction directionSW = new Move.Direction(-1,-1);
-        Move.Direction directionW = new Move.Direction(0,-1);
-        Move.Direction directionNW = new Move.Direction(-1,1);
+        Direction[] directions = new Direction[4];
 
+        directions[0] = new Direction(1,1);
+        directions[1] = new Direction(-1,1);
+        directions[2] = new Direction(-1,-1);
+        directions[3] = new Direction(-1,1);
 
+        this.directions = directions;
 
     }
 
     @Override
-    Board.Position[] captureFunction() {
-        return new Board.Position[0];
+    Board.Position[][] captureFunction() {
+
+        Board.Position[][] arrayPositions;
+        arrayPositions = Move.moveDirections(this.directions, this.position, this.maxDistance);
+
+        return arrayPositions;
+
     }
 
     @Override
-    Board.Position[] moveFunction() {
+    Board.Position[][] moveFunction() {
 
+        Board.Position[][] arrayPositions;
+        arrayPositions = Move.moveDirections(this.directions, this.position, this.maxDistance);
 
-        return null;
+        return arrayPositions;
+
     }
 
-    Board.Position[] moveDiagonalDirection(int rankDirection, int fileDirection){
 
-        Board.Position[] arrayPosition = new Board.Position[this.maxDistance];
-
-        for(int i=0; i<arrayPosition.length; i++){
-            int newRank = rankDirection*(i+1);
-            int newFile = fileDirection*(i+1);
-            arrayPosition[i] = new Board.Position(newRank, newFile);
-        }
-
-        return arrayPosition;
-    }
 }

@@ -32,7 +32,7 @@ public class Pawn extends Piece {
 
 
     @Override
-    Board.Position[] moveFunction() {
+    Board.Position[][] moveFunction() {
 
 //        Create an array of positions
         Board.Position[] arrayPosition;
@@ -57,7 +57,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    Board.Position[] captureFunction() {
+    Board.Position[][] captureFunction() {
 
         Board.Position[] arrayPosition = new Board.Position[2];
 
