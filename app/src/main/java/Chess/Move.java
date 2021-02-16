@@ -6,9 +6,6 @@ import java.util.Set;
 
 public class Move {
 
-    static Set<Integer> possibleDirections = new HashSet<Integer>(Arrays.asList(-1, 0, 1));
-
-
     static Board.Position[] moveDirection(Move.Direction direction, Board.Position position, int maxDistance){
 
         Board.Position[] arrayPosition = new Board.Position[maxDistance];
@@ -88,15 +85,8 @@ public class Move {
 
         public Direction(int rankDirection, int fileDirection) {
 
-            if(Move.possibleDirections.contains(rankDirection)){
-                if(Move.possibleDirections.contains(fileDirection)){
-                    this.rankDirection = rankDirection;
-                    this.fileDirection = fileDirection;
-                }
-            }else{
-                this.rankDirection = 0;
-                this.fileDirection = 0;
-            }
+            this.rankDirection = rankDirection;
+            this.fileDirection = fileDirection;
 
         }
 

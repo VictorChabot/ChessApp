@@ -17,17 +17,22 @@ public class Knight extends Piece{
         this.canCaptureFoe=true;
         this.canCapturePeer=false;
 
-        this.maxDistance = 8;
-        this.nbPossiblePositions = 8;
+        this.maxDistance = 1;
 
         Direction[] directions = new Direction[4];
 
-        directions[0] = new Direction(1,1);
-        directions[1] = new Direction(-1,1);
-        directions[2] = new Direction(-1,-1);
-        directions[3] = new Direction(-1,1);
+        directions[0] = new Direction(1,2);
+        directions[1] = new Direction(2,1);
+        directions[2] = new Direction(-1,2);
+        directions[3] = new Direction(-2,1);
+        directions[4] = new Direction(-1,-2);
+        directions[5] = new Direction(-2,-1);
+        directions[6] = new Direction(1,-2);
+        directions[7] = new Direction(2,-1);
 
         this.directions = directions;
+
+        this.nbPossiblePositions = this.directions.length*this.maxDistance;
 
     }
 
