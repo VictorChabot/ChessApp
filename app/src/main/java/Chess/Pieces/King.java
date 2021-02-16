@@ -1,5 +1,6 @@
 package Chess.Pieces;
 
+import Chess.Board;
 import Chess.Move;
 import Chess.Move.Direction;
 
@@ -35,22 +36,17 @@ public class King extends Piece{
     }
 
     @Override
-    Board.Position[][] captureFunction() {
+    public void setCapturablePositions() {
 
-        Board.Position[][] arrayPositions;
-        arrayPositions = Move.moveDirections(this.directions, this.position, this.maxDistance);
-
-        return arrayPositions;
+        this.capturablePositions = Move.moveDirections(this.directions, this.position, this.maxDistance);
 
     }
 
     @Override
-    Board.Position[][] moveFunction() {
+    public void setMoveablePositions() {
 
-        Board.Position[][] arrayPositions;
-        arrayPositions = Move.moveDirections(this.directions, this.position, this.maxDistance);
 
-        return arrayPositions;
+        this.moveablePositions = Move.moveDirections(this.directions, this.position, this.maxDistance);
 
     }
 

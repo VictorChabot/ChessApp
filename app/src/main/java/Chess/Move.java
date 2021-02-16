@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import Chess.Pieces.Board;
-
 public class Move {
 
     static Set<Integer> possibleDirections = new HashSet<Integer>(Arrays.asList(-1, 0, 1));

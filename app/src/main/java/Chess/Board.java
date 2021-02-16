@@ -1,6 +1,8 @@
-package Chess.Pieces;
+package Chess;
 
 import org.jetbrains.annotations.NotNull;
+
+import Chess.Pieces.Piece;
 
 public class Board {
 
@@ -30,7 +32,15 @@ public class Board {
         this.nbRanks = nbRanks;
         this.nbFiles = nbFiles;
 
-        this.board = new  Square[this.nbRanks][this.nbFiles];
+
+        this.board = new Square[this.nbRanks][this.nbFiles];
+
+        for(int i = 0; i<this.nbRanks; i++){
+            for(int j = 0; j<this.nbFiles; j++){
+                Square square = new Square(i,j);
+                this.setSquare(i,j, square);
+            }
+        }
 
     }
 

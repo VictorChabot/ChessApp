@@ -1,5 +1,6 @@
 package Chess.Pieces;
 
+import Chess.Board;
 import Chess.Move;
 
 public abstract class Piece {
@@ -10,10 +11,14 @@ public abstract class Piece {
     protected int nbMoves;
     protected Board.Position position;
     protected Move.Direction[] directions;
+    protected Board.Position[][] moveablePositions;
+    protected Board.Position[][] capturablePositions;
+    protected int maxDistance;
 
-    public Piece(String name, int team, boolean canCaptureFoe, boolean canCapturePeer, Board.Position position) {
+    public Piece(String name, int team, boolean canCaptureFoe, boolean canCapturePeer, Board.Position position, int maxDistance) {
         this.name = name;
         this.team = team;
+        this.maxDistance = maxDistance;
         this.canCaptureFoe = canCaptureFoe;
         this.canCapturePeer = canCapturePeer;
         this.nbMoves = 0;
@@ -66,6 +71,46 @@ public abstract class Piece {
         this.nbMoves = nbMoves;
     }
 
+    public void setTeam(int team) {
+        this.team = team;
+    }
+
+    public void setCanCaptureFoe(boolean canCaptureFoe) {
+        this.canCaptureFoe = canCaptureFoe;
+    }
+
+    public void setCanCapturePeer(boolean canCapturePeer) {
+        this.canCapturePeer = canCapturePeer;
+    }
+
+    public Board.Position[][] getMoveablePositions() {
+        return moveablePositions;
+    }
+
+    public void setMoveablePositions(Board.Position[][] moveablePositions) {
+        this.moveablePositions = moveablePositions;
+    }
+
+    public Board.Position[][] getCapturablePositions() {
+        return capturablePositions;
+    }
+
+    public void setCapturablePositions(Board.Position[][] capturablePositions) {
+        this.capturablePositions = capturablePositions;
+    }
+
+    public int getMaxDistance() {
+        return maxDistance;
+    }
+
+    public void setMaxDistance(int maxDistance) {
+        this.maxDistance = maxDistance;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Board.Position getPosition() {
         return position;
     }
@@ -82,8 +127,14 @@ public abstract class Piece {
         this.position = position;
     }
 
-    abstract Board.Position[][] moveFunction();
+    public void setMoveablePositions(){
+        this.moveablePositions = Move.moveDirections(this.directions, this.position, this.maxDistance);
+    }
 
-    abstract Board.Position[][] captureFunction();
+    public void setCapturablePositions(){
+        this.capturablePositions = Move.moveDirections(this.directions, this.position, this.maxDistance);
+    }
+
+
 
 }

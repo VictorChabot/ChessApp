@@ -1,5 +1,6 @@
 package Chess.Pieces;
 
+import Chess.Board;
 import Chess.Move;
 import Chess.Move.Direction;
 
@@ -30,25 +31,6 @@ public class Knight extends Piece{
 
     }
 
-    @Override
-    Board.Position[][] captureFunction() {
-
-        Board.Position[][] arrayPositions;
-        arrayPositions = Move.moveLDirections(this.directions, this.position);
-
-        return arrayPositions;
-
-    }
-
-    @Override
-    Board.Position[][] moveFunction() {
-
-        Board.Position[][] arrayPositions;
-        arrayPositions = Move.moveLDirections(this.directions, this.position);
-
-        return arrayPositions;
-
-    }
 
 
 }

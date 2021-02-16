@@ -1,5 +1,7 @@
 package Chess.Pieces;
 
+import Chess.Board;
+
 public class Pawn extends Piece {
 
     protected int forward;
@@ -32,34 +34,35 @@ public class Pawn extends Piece {
 
 
     @Override
-    Board.Position[][] moveFunction() {
+    public void setMoveablePositions() {
 
 //        Create an array of positions
-        Board.Position[] arrayPosition;
+        Board.Position[][] moveablePositions;
 
         // If it's the first move, possible to move two squares in front, so two possible moves
         if(this.nbMoves==0){
-            arrayPosition = new Board.Position[2];
+
+            moveablePositions = new Board.Position[2][1];
 
             int rankMove0 = this.getFile() + this.forward*2;
-            arrayPosition[0] = new Board.Position(rankMove0, this.getFile());
+            moveablePositions[1][0] = new Board.Position(rankMove0, this.getFile());
 
 //       If it's not the first move, can only move one square in front
         }else{
-           arrayPosition = new Board.Position[1];
+            moveablePositions = new Board.Position[1][1];
         }
 
         int rankMove1 = this.getFile() + this.forward*1;
 
-        arrayPosition[1] = new Board.Position(rankMove1, this.getFile());
+        moveablePositions[0][0] = new Board.Position(rankMove1, this.getFile());
 
-        return arrayPosition;
+        this.moveablePositions = moveablePositions;
     }
 
     @Override
-    Board.Position[][] captureFunction() {
+    public void setCapturablePositions() {
 
-        Board.Position[] arrayPosition = new Board.Position[2];
+        Board.Position[][] capturablePositions = new Board.Position[2][1];
 
 //        A pawn always capture one diagonal in its direction
         int rankCapture = this.getRank() + 1*this.forward;
@@ -67,10 +70,10 @@ public class Pawn extends Piece {
         int fileCapture1 = this.getFile() - 1;
         int fileCapture2 = this.getFile() + 1;
 
-        arrayPosition[0] = new Board.Position(rankCapture, fileCapture1);
-        arrayPosition[1] = new Board.Position(rankCapture, fileCapture2);
+        capturablePositions[0][0] = new Board.Position(rankCapture, fileCapture1);
+        capturablePositions[1][0] = new Board.Position(rankCapture, fileCapture2);
 
-        return arrayPosition;
+        this.capturablePositions = capturablePositions;
 
     }
 }

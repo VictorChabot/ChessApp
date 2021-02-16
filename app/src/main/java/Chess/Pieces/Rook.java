@@ -1,5 +1,6 @@
 package Chess.Pieces;
 
+import Chess.Board;
 import Chess.Move;
 import Chess.Move.Direction;
 
@@ -29,26 +30,5 @@ public class Rook extends Piece{
         this.directions = directions;
 
     }
-
-    @Override
-    Board.Position[][] captureFunction() {
-
-        Board.Position[][] arrayPositions;
-        arrayPositions = Move.moveDirections(this.directions, this.position, this.maxDistance);
-
-        return arrayPositions;
-
-    }
-
-    @Override
-    Board.Position[][] moveFunction() {
-
-        Board.Position[][] arrayPositions;
-        arrayPositions = Move.moveDirections(this.directions, this.position, this.maxDistance);
-
-        return arrayPositions;
-
-    }
-
 
 }
