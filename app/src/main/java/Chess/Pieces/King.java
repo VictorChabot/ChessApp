@@ -1,22 +1,23 @@
-package Chess;
+package Chess.Pieces;
 
+import Chess.Move;
 import Chess.Move.Direction;
 
-public class Queen extends Piece{
+public class King extends Piece{
     protected int maxDistance;
     protected int nbPossiblePositions;
     protected Direction[] possibleDirection;
 
-    public Queen(int team, Board.Position position) {
+    public King(int team, Board.Position position) {
         super(team, position);
 
-        this.name = "Queen";
+        this.name = "King";
 
         this.canCaptureFoe=true;
         this.canCapturePeer=false;
 
-        this.maxDistance = 8;
-        this.nbPossiblePositions = this.maxDistance*4;
+        this.maxDistance = 1;
+        this.nbPossiblePositions = this.maxDistance*8;
 
         Direction[] directions = new Direction[8];
 

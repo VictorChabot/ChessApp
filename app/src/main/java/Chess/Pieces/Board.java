@@ -1,4 +1,4 @@
-package Chess;
+package Chess.Pieces;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -104,7 +104,7 @@ public class Board {
         }
     }
 
-    protected static class Position{
+    public static class Position{
         int file;
         int rank;
 

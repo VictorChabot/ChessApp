@@ -1,29 +1,30 @@
-package Chess;
+package Chess.Pieces;
 
+import Chess.Move;
 import Chess.Move.Direction;
 
-public class Rook extends Piece{
+public class Knight extends Piece{
     protected int maxDistance;
     protected int nbPossiblePositions;
     protected Direction[] possibleDirection;
 
-    public Rook(int team, Board.Position position) {
+    public Knight(int team, Board.Position position) {
         super(team, position);
 
-        this.name = "Rook";
+        this.name = "Knight";
 
         this.canCaptureFoe=true;
         this.canCapturePeer=false;
 
         this.maxDistance = 8;
-        this.nbPossiblePositions = this.maxDistance*4;
+        this.nbPossiblePositions = 8;
 
         Direction[] directions = new Direction[4];
 
-        directions[0] = new Direction(1,0);
-        directions[1] = new Direction(0,1);
-        directions[2] = new Direction(-1,0);
-        directions[3] = new Direction(0,-1);
+        directions[0] = new Direction(1,1);
+        directions[1] = new Direction(-1,1);
+        directions[2] = new Direction(-1,-1);
+        directions[3] = new Direction(-1,1);
 
         this.directions = directions;
 
@@ -33,7 +34,7 @@ public class Rook extends Piece{
     Board.Position[][] captureFunction() {
 
         Board.Position[][] arrayPositions;
-        arrayPositions = Move.moveDirections(this.directions, this.position, this.maxDistance);
+        arrayPositions = Move.moveLDirections(this.directions, this.position);
 
         return arrayPositions;
 
@@ -43,7 +44,7 @@ public class Rook extends Piece{
     Board.Position[][] moveFunction() {
 
         Board.Position[][] arrayPositions;
-        arrayPositions = Move.moveDirections(this.directions, this.position, this.maxDistance);
+        arrayPositions = Move.moveLDirections(this.directions, this.position);
 
         return arrayPositions;
 

@@ -4,12 +4,14 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import Chess.Pieces.Board;
+
 public class Move {
 
     static Set<Integer> possibleDirections = new HashSet<Integer>(Arrays.asList(-1, 0, 1));
 
 
-    static Board.Position[] moveDirection(Move.Direction direction,Board.Position position, int maxDistance){
+    static Board.Position[] moveDirection(Move.Direction direction, Board.Position position, int maxDistance){
 
         Board.Position[] arrayPosition = new Board.Position[maxDistance];
 
@@ -21,7 +23,7 @@ public class Move {
         return arrayPosition;
     }
 
-    static Board.Position[][] moveDirections(Move.Direction[] arrayDirection, Board.Position position, int maxDistance){
+    public static Board.Position[][] moveDirections(Move.Direction[] arrayDirection, Board.Position position, int maxDistance){
 
         Board.Position[][] arrayPosition = new Board.Position[maxDistance][arrayDirection.length];
 
@@ -60,7 +62,7 @@ public class Move {
         return arrayPosition;
     }
 
-    static Board.Position[][] moveLDirections(Move.Direction[] arrayDirection, Board.Position position){
+    public static Board.Position[][] moveLDirections(Move.Direction[] arrayDirection, Board.Position position){
 
         int nbMovePerDirection = 2;
 

@@ -1,4 +1,6 @@
-package Chess;
+package Chess.Pieces;
+
+import Chess.Move;
 
 public abstract class Piece {
     protected String name;

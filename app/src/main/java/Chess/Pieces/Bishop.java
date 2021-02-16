@@ -1,5 +1,6 @@
-package Chess;
+package Chess.Pieces;
 
+import Chess.Move;
 import Chess.Move.Direction;
 
 public class Bishop extends Piece{
