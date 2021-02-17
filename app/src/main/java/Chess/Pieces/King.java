@@ -1,6 +1,7 @@
 package Chess.Pieces;
 
 import Chess.Board;
+import Chess.Directions;
 import Chess.Move;
 import Chess.Move.Direction;
 
@@ -22,31 +23,16 @@ public class King extends Piece{
 
         Direction[] directions = new Direction[8];
 
-        directions[0] = new Direction(1,0);
-        directions[1] = new Direction(1,1);
-        directions[2] = new Direction(0,1);
-        directions[3] = new Direction(-1,1);
-        directions[4] = new Direction(-1,0);
-        directions[5] = new Direction(-1,-1);
-        directions[6] = new Direction(0,-1);
-        directions[7] = new Direction(1,-1);
+        directions[0] = Directions.getN();
+        directions[1] = Directions.getNW();
+        directions[2] = Directions.getW();
+        directions[3] = Directions.getSW();
+        directions[4] = Directions.getS();
+        directions[5] = Directions.getSE();
+        directions[6] = Directions.getE();
+        directions[7] = Directions.getNE();
 
         this.directions = directions;
-
-    }
-
-    @Override
-    public void setCapturablePositions() {
-
-        this.capturablePositions = Move.moveDirections(this.directions, this.position, this.maxDistance);
-
-    }
-
-    @Override
-    public void setMoveablePositions() {
-
-
-        this.moveablePositions = Move.moveDirections(this.directions, this.position, this.maxDistance);
 
     }
 

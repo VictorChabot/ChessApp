@@ -1,6 +1,7 @@
 package Chess.Pieces;
 
 import Chess.Board;
+import Chess.Directions;
 import Chess.Move;
 import Chess.Move.Direction;
 
@@ -22,10 +23,10 @@ public class Bishop extends Piece{
 
         Direction[] directions = new Direction[4];
 
-        directions[0] = new Direction(1,1);
-        directions[1] = new Direction(-1,1);
-        directions[2] = new Direction(-1,-1);
-        directions[3] = new Direction(-1,1);
+        directions[0] = Directions.getNW();
+        directions[1] = Directions.getSW();
+        directions[2] = Directions.getSE();
+        directions[3] = Directions.getNE();
 
         this.directions = directions;
 

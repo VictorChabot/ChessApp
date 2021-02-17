@@ -1,6 +1,7 @@
 package Chess.Pieces;
 
 import Chess.Board;
+import Chess.Directions;
 import Chess.Move;
 import Chess.Move.Direction;
 
@@ -22,10 +23,10 @@ public class Rook extends Piece{
 
         Direction[] directions = new Direction[4];
 
-        directions[0] = new Direction(1,0);
-        directions[1] = new Direction(0,1);
-        directions[2] = new Direction(-1,0);
-        directions[3] = new Direction(0,-1);
+        directions[0] = Directions.getN();
+        directions[1] = Directions.getW();
+        directions[2] = Directions.getS();
+        directions[3] = Directions.getE();
 
         this.directions = directions;
 

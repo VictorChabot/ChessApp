@@ -1,6 +1,7 @@
 package Chess.Pieces;
 
 import Chess.Board;
+import Chess.Directions;
 import Chess.Move;
 import Chess.Move.Direction;
 
@@ -19,16 +20,16 @@ public class Knight extends Piece{
 
         this.maxDistance = 1;
 
-        Direction[] directions = new Direction[4];
+        Direction[] directions = new Direction[8];
 
-        directions[0] = new Direction(1,2);
-        directions[1] = new Direction(2,1);
-        directions[2] = new Direction(-1,2);
-        directions[3] = new Direction(-2,1);
-        directions[4] = new Direction(-1,-2);
-        directions[5] = new Direction(-2,-1);
-        directions[6] = new Direction(1,-2);
-        directions[7] = new Direction(2,-1);
+        directions[0] = Directions.getTallLshapeNW();
+        directions[1] = Directions.getWideLshapeNW();
+        directions[2] = Directions.getTallLshapeSW();
+        directions[3] = Directions.getTallLshapeSW();
+        directions[4] = Directions.getTallLshapeSE();
+        directions[5] = Directions.getTallLshapeSE();
+        directions[6] = Directions.getTallLshapeNE();
+        directions[7] = Directions.getTallLshapeNE();
 
         this.directions = directions;
 
