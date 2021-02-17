@@ -86,7 +86,7 @@ public class Board {
 
 ////////////////////////////////////////    Getters and setters
 
-    public boolean canMove(Board.Position position, Piece piece){
+    public boolean isObstructed(Board.Position position, Piece piece){
 
         Piece destinationPiece = this.getSquare(position).getPiece();
 
@@ -108,6 +108,53 @@ public class Board {
         return false;
 
     }
+
+    public boolean[] isObstructed(Board.Position[] position, Piece piece){
+
+        boolean[] isObstructed = new boolean[position.length];
+
+        if(piece.isCanJump()){
+
+            for(int i=0; i<position.length;i++){
+
+                isObstructed[i] = this.isObstructed(position[i], piece);
+
+            }
+        }
+
+        else {
+
+            for(int i=0; i<position.length;i++){
+
+                boolean isObstructedi = this.isObstructed(position[i], piece);
+
+                if(isObstructedi){
+                    isObstructed[i]=true;
+                }
+                else{
+                    for(int j=i; j<position.length;j++){
+                        isObstructed[j]=false;
+                    }
+//                    NOT SURE IF THIS BREAK IS IN THE PROPER SCOPE
+                    break;
+                }
+
+            }
+
+        }
+
+        return isObstructed;
+    }
+
+//    public boolean[][] isObstructed(Board.Position[][] position, Piece piece){
+//
+//
+//
+//    }
+
+
+
+
 
 
 

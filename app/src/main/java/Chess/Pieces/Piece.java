@@ -8,6 +8,7 @@ public abstract class Piece {
     protected int team;
     protected boolean canCaptureFoe;
     protected boolean canCapturePeer;
+    protected boolean canJump;
     protected int nbMoves;
     protected Board.Position position;
     protected Move.Direction[] directions;
@@ -15,12 +16,13 @@ public abstract class Piece {
     protected Board.Position[][] capturablePositions;
     protected int maxDistance;
 
-    public Piece(String name, int team, boolean canCaptureFoe, boolean canCapturePeer, Board.Position position, int maxDistance) {
+    public Piece(String name, int team, boolean canCaptureFoe, boolean canCapturePeer, boolean canJump , Board.Position position, int maxDistance) {
         this.name = name;
         this.team = team;
         this.maxDistance = maxDistance;
         this.canCaptureFoe = canCaptureFoe;
         this.canCapturePeer = canCapturePeer;
+        this.canJump = canJump;
         this.nbMoves = 0;
         this.position = position;
     }
@@ -82,6 +84,15 @@ public abstract class Piece {
     public void setCanCapturePeer(boolean canCapturePeer) {
         this.canCapturePeer = canCapturePeer;
     }
+
+    public boolean isCanJump() {
+        return canJump;
+    }
+
+    public void setCanJump(boolean canJump) {
+        this.canJump = canJump;
+    }
+
 
     public Board.Position[][] getMoveablePositions() {
         return moveablePositions;
