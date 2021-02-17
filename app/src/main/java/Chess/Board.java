@@ -66,6 +66,10 @@ public class Board {
         return this.board[rank][file];
     }
 
+    public Square getSquare(Board.Position position){
+        return this.board[position.getRank()][position.getFile()];
+    }
+
     public void setSquare(int rank, int file, Square square){
         this.board[rank][file] = square;
     }
@@ -78,7 +82,32 @@ public class Board {
         this.board[rank][file].setPiece(piece);
     }
 
+
+
 ////////////////////////////////////////    Getters and setters
+
+    public boolean canMove(Board.Position position, Piece piece){
+
+        Piece destinationPiece = this.getSquare(position).getPiece();
+
+
+        if(destinationPiece==null){
+            return true;
+        }
+        if(destinationPiece.getTeam()!=piece.getTeam()){
+            if(piece.isCanCaptureFoe()){
+                return true;
+            }
+        }
+        if(destinationPiece.getTeam()==piece.getTeam()){
+            if(piece.isCanCapturePeer()){
+                return true;
+            }
+        }
+
+        return false;
+
+    }
 
 
 
