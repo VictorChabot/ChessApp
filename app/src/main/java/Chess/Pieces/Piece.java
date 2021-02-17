@@ -135,6 +135,9 @@ public abstract class Piece {
         this.capturablePositions = Move.moveDirections(this.directions, this.position, this.maxDistance);
     }
 
-
+    public void setPositions(){
+        this.setMoveablePositions();
+        this.setCapturablePositions();
+    }
 
 }

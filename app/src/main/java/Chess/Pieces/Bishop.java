@@ -30,6 +30,8 @@ public class Bishop extends Piece{
 
         this.directions = directions;
 
+        this.setPositions();
+
     }
 
 

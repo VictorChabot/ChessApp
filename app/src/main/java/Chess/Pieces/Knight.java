@@ -35,6 +35,8 @@ public class Knight extends Piece{
 
         this.nbPossiblePositions = this.directions.length*this.maxDistance;
 
+        this.setPositions();
+
     }
 
 

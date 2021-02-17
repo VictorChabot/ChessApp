@@ -30,6 +30,8 @@ public class Rook extends Piece{
 
         this.directions = directions;
 
+        this.setPositions();
+
     }
 
 }

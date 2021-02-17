@@ -34,6 +34,8 @@ public class Queen extends Piece{
 
         this.directions = directions;
 
+        this.setPositions();
+
     }
 
 }

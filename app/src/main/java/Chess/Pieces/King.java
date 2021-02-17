@@ -34,6 +34,8 @@ public class King extends Piece{
 
         this.directions = directions;
 
+        this.setPositions();
+
     }
 
 

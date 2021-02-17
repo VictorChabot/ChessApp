@@ -22,6 +22,9 @@ public class Pawn extends Piece {
             this.forward = -1;
         }
 
+        this.setPositions();
+
+
     }
 
     public int getForward() {
@@ -76,4 +79,7 @@ public class Pawn extends Piece {
         this.capturablePositions = capturablePositions;
 
     }
+
+
+
 }
