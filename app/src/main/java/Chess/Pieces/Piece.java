@@ -15,6 +15,7 @@ public abstract class Piece {
     protected Board.Position[][] moveablePositions;
     protected Board.Position[][] capturablePositions;
     protected int maxDistance;
+    protected boolean isMateable;
 
     public Piece(String name, int team, boolean canCaptureFoe, boolean canCapturePeer, boolean canJump , Board.Position position, int maxDistance) {
         this.name = name;
@@ -25,6 +26,8 @@ public abstract class Piece {
         this.canJump = canJump;
         this.nbMoves = 0;
         this.position = position;
+        this.isMateable = isMateable;
+        this.isMateable = false;
     }
 
     public Piece(int team, boolean canCaptureFoe, boolean canCapturePeer, Board.Position position) {
@@ -33,12 +36,14 @@ public abstract class Piece {
         this.canCapturePeer = canCapturePeer;
         this.nbMoves = 0;
         this.position = position;
+        this.isMateable = false;
     }
 
     public Piece(int team, Board.Position position) {
         this.team = team;
         this.nbMoves = 0;
         this.position = position;
+        this.isMateable = false;
     }
 
     public Move.Direction[] getDirections() {
@@ -151,4 +156,11 @@ public abstract class Piece {
         this.setCapturablePositions();
     }
 
+    public boolean isMateable() {
+        return isMateable;
+    }
+
+    public void setMateable(boolean mateable) {
+        isMateable = mateable;
+    }
 }

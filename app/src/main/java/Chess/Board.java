@@ -146,11 +146,44 @@ public class Board {
         return isObstructed;
     }
 
-//    public boolean[][] isObstructed(Board.Position[][] position, Piece piece){
-//
-//
-//
-//    }
+    public boolean[][] isObstructed(Board.Position[][] position2D, Piece piece){
+
+        boolean isObstructed2D[][] = new boolean[position2D.length][position2D[0].length];
+
+        int nbCols = position2D[0].length;
+
+        for(int i=0; i<position2D.length; i++){
+            Board.Position[] position1D = new Board.Position[nbCols];
+            position1D = position2D[i];
+
+            isObstructed2D[i] = isObstructed(position1D, piece);
+        }
+
+        return isObstructed2D;
+    }
+
+    public boolean isCapturable(Board.Position position, Piece piece){
+        Piece attackedPiece = this.getSquare(position).getPiece();
+
+        if(attackedPiece!=null){
+
+            int attackingTeam = piece.getTeam();
+            int attackedTeam = attackedPiece.getTeam();
+
+            if(piece.isCanCaptureFoe()){
+                if(attackingTeam!=attackedTeam){
+                    return true;
+                }
+            }
+
+            if(piece.isCanCapturePeer()){
+                if(attackingTeam==attackedTeam){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 
 

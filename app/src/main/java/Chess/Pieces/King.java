@@ -14,6 +14,7 @@ public class King extends Piece{
         super(team, position);
 
         this.name = "King";
+        this.isMateable = true;
 
         this.canCaptureFoe=true;
         this.canCapturePeer=false;
