@@ -1,5 +1,7 @@
 package Chess;
 
+import android.view.MotionEvent;
+
 import org.jetbrains.annotations.NotNull;
 
 import Chess.Pieces.Piece;
@@ -184,6 +186,34 @@ public class Board {
         }
         return false;
     }
+
+    public boolean[] isCapturable(Board.Position[] position, Piece piece){
+
+        boolean[] isCapturable1D = new boolean[position.length];
+
+        for(int i=0; i<position.length; i++){
+            isCapturable1D[i] = isCapturable(position[i], piece);
+        }
+
+        return isCapturable1D;
+
+    }
+
+    public boolean[][] isCapturable(Board.Position[][] position2D, Piece piece){
+
+        boolean[][] isCapturable2D = new boolean[position2D.length][position2D[0].length];
+
+        for(int i=0; i<position2D.length; i++){
+
+            Board.Position[] position1D = position2D[i];
+
+            isCapturable2D[i] = isCapturable(position1D, piece);
+        }
+
+        return isCapturable2D;
+
+    }
+
 
 
 
