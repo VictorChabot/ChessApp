@@ -3,6 +3,7 @@ package Chess;
 import android.view.MotionEvent;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import Chess.Pieces.Piece;
 
@@ -82,6 +83,10 @@ public class Board {
 
     public void addPiece(int rank, int file, Piece piece){
         this.board[rank][file].setPiece(piece);
+    }
+
+    public Piece getPiece(Board.Position position){
+        return this.getSquare(position).getPiece();
     }
 
 
@@ -214,6 +219,33 @@ public class Board {
 
     }
 
+    @Nullable
+    public Board.Position[][] getMoveablePosition(Board.Position position){
+
+        Piece piece = this.getPiece(position);
+
+        return piece.getMoveablePositions();
+
+    }
+
+    @Nullable
+    public Board.Position[][] getCapturablePosition(Board.Position position){
+
+        Piece piece = this.getPiece(position);
+
+        return piece.getCapturablePositions();
+
+    }
+
+//    public Board.Position[][] canMove(Board.Position position){
+//
+//        Board.Position[][] position2D = this.getMoveablePosition(position);
+//
+//        boolean[][] isNotObstructed = isObstructed(position2D);
+//
+//        return isNotObstructed;
+//
+//    }
 
 
 
