@@ -1,9 +1,9 @@
 package Chess;
 
-import android.view.MotionEvent;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
 
 import Chess.Pieces.Piece;
 
@@ -93,10 +93,44 @@ public class Board {
 
 ////////////////////////////////////////    Getters and setters
 
-    public boolean isObstructed(Board.Position position, Piece piece){
+    public boolean isOnBoard(Board.Position position){
+        if((0 <= position.getRank()) && (position.getRank()<= this.nbRanks)){
+            if((0 <= position.getFile()) && (position.getRank()<= this.nbFiles)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean[] isOnBoard(Board.Position[] position1D){
+
+        boolean[] isOnBoard1D = new boolean[position1D.length];
+
+        for(int i=0; i<position1D.length; i++){
+            isOnBoard1D[i] = isOnBoard(position1D[i]);
+        }
+
+        return isOnBoard1D;
+    }
+
+    public boolean[][] isOnBoard(Board.Position[][] position2D){
+
+        boolean[][] isOnBoard2D = new boolean[position2D.length][position2D[0].length];
+
+        for(int i=0; i<position2D.length; i++){
+            isOnBoard2D[i] = isOnBoard(position2D[i]);
+        }
+
+        return isOnBoard2D;
+    }
+
+    public boolean isNotObstructed(Board.Position position, Piece piece){
 
         Piece destinationPiece = this.getSquare(position).getPiece();
 
+        if(!this.isOnBoard(position)){
+            return false;
+        }
 
         if(destinationPiece==null){
             return true;
@@ -116,15 +150,15 @@ public class Board {
 
     }
 
-    public boolean[] isObstructed(Board.Position[] position, Piece piece){
+    public boolean[] isNotObstructed(Board.Position[] position, Piece piece){
 
-        boolean[] isObstructed = new boolean[position.length];
+        boolean[] isNotObstructed = new boolean[position.length];
 
         if(piece.isCanJump()){
 
             for(int i=0; i<position.length;i++){
 
-                isObstructed[i] = this.isObstructed(position[i], piece);
+                isNotObstructed[i] = this.isNotObstructed(position[i], piece);
 
             }
         }
@@ -133,14 +167,14 @@ public class Board {
 
             for(int i=0; i<position.length;i++){
 
-                boolean isObstructedi = this.isObstructed(position[i], piece);
+                boolean isNotObstructedi = this.isNotObstructed(position[i], piece);
 
-                if(isObstructedi){
-                    isObstructed[i]=true;
+                if(isNotObstructedi){
+                    isNotObstructed[i]=true;
                 }
                 else{
                     for(int j=i; j<position.length;j++){
-                        isObstructed[j]=false;
+                        isNotObstructed[j]=false;
                     }
 //                    NOT SURE IF THIS BREAK IS IN THE PROPER SCOPE
                     break;
@@ -150,12 +184,12 @@ public class Board {
 
         }
 
-        return isObstructed;
+        return isNotObstructed;
     }
 
-    public boolean[][] isObstructed(Board.Position[][] position2D, Piece piece){
+    public boolean[][] isNotObstructed(Board.Position[][] position2D, Piece piece){
 
-        boolean isObstructed2D[][] = new boolean[position2D.length][position2D[0].length];
+        boolean isNotObstructed2D[][] = new boolean[position2D.length][position2D[0].length];
 
         int nbCols = position2D[0].length;
 
@@ -163,10 +197,10 @@ public class Board {
             Board.Position[] position1D = new Board.Position[nbCols];
             position1D = position2D[i];
 
-            isObstructed2D[i] = isObstructed(position1D, piece);
+            isNotObstructed2D[i] = isNotObstructed(position1D, piece);
         }
 
-        return isObstructed2D;
+        return isNotObstructed2D;
     }
 
     public boolean isCapturable(Board.Position position, Piece piece){
@@ -192,12 +226,18 @@ public class Board {
         return false;
     }
 
-    public boolean[] isCapturable(Board.Position[] position, Piece piece){
+    public boolean[] isCapturable(Board.Position[] position1D, Piece piece){
 
-        boolean[] isCapturable1D = new boolean[position.length];
+        boolean[] isCapturable1D = new boolean[position1D.length];
 
-        for(int i=0; i<position.length; i++){
-            isCapturable1D[i] = isCapturable(position[i], piece);
+        boolean[] isNotObstructed = isNotObstructed(position1D, piece);
+
+        for(int i=0; i<position1D.length; i++){
+            if(isNotObstructed[i]) {
+                isCapturable1D[i] = isCapturable(position1D[i], piece);
+            }else{
+                isCapturable1D[i] = false;
+            }
         }
 
         return isCapturable1D;
@@ -237,15 +277,56 @@ public class Board {
 
     }
 
-//    public Board.Position[][] canMove(Board.Position position){
-//
-//        Board.Position[][] position2D = this.getMoveablePosition(position);
-//
-//        boolean[][] isNotObstructed = isObstructed(position2D);
-//
-//        return isNotObstructed;
-//
-//    }
+    public ArrayList<Position> canMove(Board.Position position, Piece piece){
+
+        Board.Position[][] position2D = this.getMoveablePosition(position);
+
+        boolean[][] isNotObstructed = isNotObstructed(position2D, piece);
+
+        ArrayList<Position> arrListPosition  = new ArrayList<Position>();
+
+        for(int i=0; i<position2D.length; i++){
+
+            Board.Position[] position1D = position2D[i];
+
+            for(int j=0; j<position1D.length; j++){
+                if(isNotObstructed[i][j]){
+                    arrListPosition.add(position1D[j]);
+                }
+            }
+
+        }
+
+        return arrListPosition;
+    }
+
+    public ArrayList<Position> canCapture(Board.Position position, Piece piece){
+
+        Board.Position[][] position2D = this.getCapturablePosition(position);
+
+        boolean[][] isCapturable = isCapturable(position2D, piece);
+
+        ArrayList<Position> arrListPosition  = new ArrayList<Position>();
+
+        for(int i=0; i<position2D.length; i++){
+
+            Board.Position[] position1D = position2D[i];
+
+            for(int j=0; j<position1D.length; j++){
+                if(isCapturable[i][j]){
+                    arrListPosition.add(position1D[j]);
+                }
+            }
+
+        }
+
+        return arrListPosition;
+    }
+
+    public boolean checkForCheck(Board.Position position, Piece piece){
+        Piece attackedPiece = this.getPiece(position);
+        return attackedPiece.isMateable();
+    }
 
 
 
