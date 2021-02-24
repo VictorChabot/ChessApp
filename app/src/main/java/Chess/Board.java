@@ -323,10 +323,58 @@ public class Board {
         return arrListPosition;
     }
 
-    public boolean checkForCheck(Board.Position position, Piece piece){
+    public boolean isChecking(Board.Position position, Piece piece){
         Piece attackedPiece = this.getPiece(position);
         return attackedPiece.isMateable();
     }
+
+    public boolean isChecking(ArrayList<Board.Position> position2D, Piece piece){
+
+        int sizePosition2D = position2D.size();
+
+        boolean[] isChecking2D = new boolean[sizePosition2D];
+
+        for(int i=0; i<sizePosition2D; i++){
+            boolean isChecking = isChecking(position2D.get(i), piece);
+
+            if(isChecking){
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+    public boolean teamIsChecking(int team){
+
+        for(int i=0; i<this.nbRanks; i++){
+
+            for(int j=0; j<this.nbFiles; j++){
+
+                Board.Position attackingPosition = new Board.Position(i,j);
+
+                Piece attackingPiece = this.getPiece(attackingPosition);
+
+                if(attackingPiece.getTeam()==team){
+                    ArrayList<Board.Position> capturablePosition = canCapture(attackingPosition, attackingPiece);
+
+                    boolean isChecking = isChecking(capturablePosition, attackingPiece);
+
+                    if(isChecking){
+                        return true;
+                    }
+
+                }
+
+            }
+
+        }
+
+        return false;
+
+    }
+
 
 
 
