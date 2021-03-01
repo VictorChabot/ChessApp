@@ -11,10 +11,11 @@ public class Board {
 
     final int nbFiles;
     final int nbRanks;
+    ArrayList<Integer> arrListTeam;
 
     Square[][] board;
 
-    public Board(Square[][] board){
+    public Board(Square[][] board, int nbTeams){
 
         this.board = board;
 
@@ -26,6 +27,12 @@ public class Board {
                 Square square = new Square(i,j);
                 this.setSquare(i,j, square);
             }
+        }
+
+        ArrayList<Integer> arrListTeam  = new ArrayList<Integer>();
+
+        for(int i=0; i<nbTeams;i++){
+            arrListTeam.add(i);
         }
 
     }
@@ -89,7 +96,18 @@ public class Board {
         return this.getSquare(position).getPiece();
     }
 
+    public void setPiece(Position position, @Nullable Piece piece){
+        this.getSquare(position).setPiece(piece);
+    }
 
+    public static Board setPiece(Board board, Position position, @Nullable Piece piece){
+        board.getSquare(position).setPiece(piece);
+        return board;
+    }
+
+    public ArrayList<Integer> getArrListTeam() {
+        return this.arrListTeam;
+    }
 
 ////////////////////////////////////////    Getters and setters
 
@@ -346,20 +364,22 @@ public class Board {
 
     }
 
-    public boolean teamIsChecking(int team){
+    public static boolean teamIsChecking(Board board, int team){
 
-        for(int i=0; i<this.nbRanks; i++){
+        for(int i=0; i<board.nbRanks; i++){
 
-            for(int j=0; j<this.nbFiles; j++){
+            for(int j=0; j<board.nbFiles; j++){
 
                 Board.Position attackingPosition = new Board.Position(i,j);
 
-                Piece attackingPiece = this.getPiece(attackingPosition);
+                Piece attackingPiece = board.getPiece(attackingPosition);
 
                 if(attackingPiece.getTeam()==team){
-                    ArrayList<Board.Position> capturablePosition = canCapture(attackingPosition, attackingPiece);
+                    ArrayList<Board.Position> capturablePosition = board.canCapture(attackingPosition, attackingPiece);
 
-                    boolean isChecking = isChecking(capturablePosition, attackingPiece);
+                    boolean isChecking = board.isChecking(capturablePosition, attackingPiece);
+
+//                    Add move is legal here to check if this check is legal
 
                     if(isChecking){
                         return true;
@@ -374,6 +394,95 @@ public class Board {
         return false;
 
     }
+
+    public boolean teamIsChecking(int team){
+        return Board.teamIsChecking(this, team);
+    }
+
+
+    public static Board movePiece(Board board, Board.Position initialPosition, Board.Position newPosition, Piece piece){
+
+        Board newBoard = board;
+
+        newBoard.setPiece(initialPosition, null);
+        newBoard.setPiece(newPosition, piece);
+
+        return newBoard;
+
+    }
+
+    public static boolean moveIsLegal(Board board, Board.Position initialPosition, Board.Position newPosition){
+
+        Piece piece = board.getPiece(initialPosition);
+        int movingTeam = piece.getTeam();
+
+        Board newBoard = Board.movePiece(board, initialPosition, newPosition, piece);
+
+        // Test is each team is checking the moving team
+        ArrayList<Integer> teams = newBoard.getArrListTeam();
+
+        for(int i=0; i<teams.size(); i++){
+
+            int teamChecking = teams.get(i);
+
+            if(teamChecking!=movingTeam){
+                if(newBoard.teamIsChecking(teamChecking)){
+                    return false;
+                }
+            }
+
+        }
+
+        return true;
+
+    }
+
+    public static ArrayList<Board.Position> movesAreLegal(Board board, Board.Position initialPosition, ArrayList<Board.Position> possibleMoves){
+
+        ArrayList<Board.Position> legalMoves = new ArrayList<Board.Position>();
+
+        for(int i=0; i<possibleMoves.size();i++){
+
+            Board.Position tempNewPosition = possibleMoves.get(i);
+
+            boolean moveIsLegal = Board.moveIsLegal(board, initialPosition, tempNewPosition);
+
+            if(moveIsLegal){
+                legalMoves.add(tempNewPosition);
+            }
+
+        }
+
+        return legalMoves;
+
+
+    }
+
+    public ArrayList<Board.Position> getLegalMoves(Position position){
+
+        Piece piece = this.getPiece(position);
+
+        if(piece==null){
+            return null;
+        }
+
+        ArrayList<Board.Position> moveablePosition = this.canMove(position, piece);
+
+        ArrayList<Board.Position> legalMoveablePosition = Board.movesAreLegal(this, position, moveablePosition);
+
+
+        ArrayList<Board.Position> capturablePosition = this.canCapture(position, piece);
+
+        ArrayList<Board.Position> legalCapturablePosition = Board.movesAreLegal(this, position, capturablePosition);
+
+        ArrayList<Board.Position> legalMoves = legalMoveablePosition;
+
+        legalMoves.addAll(legalCapturablePosition);
+
+        return legalMoves;
+    }
+
+
 
 
 
